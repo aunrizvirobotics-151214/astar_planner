@@ -1,0 +1,40 @@
+astar_node:
+  ros__parameters:
+
+    # ── Planner ───────────────────────────────────────────────────────────
+    # eight_connected: true  → 8-connected A* (plan_astar_8, fewer nodes,
+    #                          diagonal moves, same algorithm as plan_path_fast
+    #                          from the assignment).
+    # eight_connected: false → 4-connected A* (plan_astar_4).
+    eight_connected: true
+
+    # Inflate obstacles by this radius before planning.
+    # Must be ≥ robot radius to avoid wall-hugging paths.
+    # articubot_one body ~0.17 m radius → 0.20 gives a small clearance margin.
+    inflation_radius: 0.20   # metres
+
+    # ── Path follower (pure pursuit) ──────────────────────────────────────
+    control_frequency: 10.0  # Hz  — timer rate for cmd_vel publishing
+
+    # Distance ahead on the path that the robot steers toward.
+    # Larger value → smoother but cuts corners more.
+    lookahead_distance: 0.5  # metres
+
+    max_linear_vel:  0.20    # m/s  — forward speed cap
+    max_angular_vel: 1.00    # rad/s — turn speed cap
+
+    # Proportional gain on heading error.
+    # Raise if robot is slow to align; lower if it oscillates.
+    kp_angular: 1.5
+
+    # Stop and declare success when robot is within this distance of goal.
+    goal_tolerance: 0.20     # metres
+
+    # ── Frame IDs ─────────────────────────────────────────────────────────
+    map_frame:  map
+    base_frame: base_link
+
+    # ── Topics ────────────────────────────────────────────────────────────
+    # Gazebo + articubot_one (no ros2_control) uses /cmd_vel directly.
+    # If diff_drive_spawner is active, change to /diff_cont/cmd_vel_unstamped
+    cmd_vel_topic: /cmd_vel
