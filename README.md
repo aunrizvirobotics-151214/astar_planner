@@ -3,7 +3,8 @@ This project implements the A* search algorithm for optimal path planning on gri
 
 The planner computes collision-free paths using cost-based search and is designed to integrate with the mcl module.
 
-Tested in simulation using ArticubotOne in Gazebo.
+<img width="1920" height="1080" alt="Screenshot from 2026-03-31 17-41-08" src="https://github.com/user-attachments/assets/b2c985e1-1114-4381-92ea-ec143bef4ebc" />
+
 
 ## Simulation Setup
 All algorithms are implemented and tested using:
