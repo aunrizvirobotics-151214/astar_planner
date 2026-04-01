@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-A* path planner — direct port of assignment_1_astar.py
-=======================================================
+A* path planner
 Operates on a float occupancy grid where:
   1.0  = free space
   0.0  = obstacle / unknown
@@ -10,10 +9,6 @@ Two planners are provided:
   plan_astar_4  — 4-connected grid (Euclidean heuristic, admissible)
   plan_astar_8  — 8-connected grid (diagonal moves, fewer nodes explored)
 
-Both return (path, visited):
-  path    — list of np.array([row, col]) from start to goal
-             empty list if no path exists
-  visited — (H, W) float array, 1.0 where cells were expanded
 """
 
 import heapq
@@ -22,7 +17,7 @@ from collections import deque
 
 
 # ──────────────────────────────────────────────────────
-#  Node (same design as assignment_1_astar.py)
+#  Node
 # ──────────────────────────────────────────────────────
 
 class PlanNode:
@@ -47,7 +42,7 @@ class PlanNode:
 
 
 # ──────────────────────────────────────────────────────
-#  Helpers (identical to assignment)
+#  Helpers
 # ──────────────────────────────────────────────────────
 
 def is_free(v, thr=0.9):
@@ -98,7 +93,7 @@ def _euclidean(cell, goal):
 
 
 # ──────────────────────────────────────────────────────
-#  Core A* (generalised — same logic as plan_path_fast)
+#  Core A*
 # ──────────────────────────────────────────────────────
 
 def _astar(n_start, n_goal, M, get_neighbors):
@@ -180,10 +175,6 @@ def plan_astar_8(n_start, n_goal, M):
     """
     return _astar(n_start, n_goal, M, _get_neighbors_8)
 
-
-# ──────────────────────────────────────────────────────
-#  Utility: find nearest free cell via BFS
-# ──────────────────────────────────────────────────────
 
 def nearest_free_cell(cell, free_map):
     """
