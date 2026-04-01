@@ -13,16 +13,6 @@ Publishes:
 
 TF:
   Reads map → base_link to determine current robot pose.
-
-Algorithm:
-  1. On /goal_pose  → inflate obstacles, run 8-connected A* (plan_astar_8),
-                      smooth path, publish /astar/path
-  2. Timer @ 10 Hz  → pure-pursuit controller, publish /cmd_vel
-
-Pure pursuit:
-  Finds the first waypoint ≥ lookahead_distance ahead of the robot,
-  steers toward it with a P-controller on heading error.
-  Linear speed is reduced for sharp turns.
 """
 
 import math
@@ -67,7 +57,6 @@ def yaw_to_quat_msg(yaw):
     return Quaternion(x=arr[0], y=arr[1], z=arr[2], w=arr[3])
 
 
-# ──────────────────────────────────────────────────────
 #  Map coordinate helpers
 #
 #  OccupancyGrid layout (ROS convention):
@@ -81,7 +70,7 @@ def yaw_to_quat_msg(yaw):
 #    increasing col → increasing world x
 #
 #  world_to_cell / cell_to_world are consistent with this convention.
-# ──────────────────────────────────────────────────────
+
 
 def world_to_cell(wx, wy, origin_x, origin_y, resolution):
     """World (x, y) → grid (row, col).  May be out of bounds."""
